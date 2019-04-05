@@ -1,5 +1,6 @@
 
 import java.io.File;
+import java.io.FileInputStream;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,6 +35,8 @@ public class FileRemoveScreen extends java.awt.Frame {
         ch = new java.awt.Choice();
         button1 = new java.awt.Button();
         button2 = new java.awt.Button();
+        button3 = new java.awt.Button();
+        ta = new java.awt.TextArea();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -44,11 +47,11 @@ public class FileRemoveScreen extends java.awt.Frame {
 
         label1.setText("Folder");
         add(label1);
-        label1.setBounds(60, 100, 60, 30);
+        label1.setBounds(60, 40, 60, 30);
         add(t1);
-        t1.setBounds(140, 100, 140, 30);
+        t1.setBounds(140, 40, 140, 30);
         add(ch);
-        ch.setBounds(140, 170, 140, 30);
+        ch.setBounds(140, 90, 140, 30);
 
         button1.setLabel("Fetch");
         button1.addActionListener(new java.awt.event.ActionListener() {
@@ -57,7 +60,7 @@ public class FileRemoveScreen extends java.awt.Frame {
             }
         });
         add(button1);
-        button1.setBounds(300, 100, 60, 30);
+        button1.setBounds(300, 40, 60, 30);
 
         button2.setLabel("Delete");
         button2.addActionListener(new java.awt.event.ActionListener() {
@@ -66,7 +69,18 @@ public class FileRemoveScreen extends java.awt.Frame {
             }
         });
         add(button2);
-        button2.setBounds(300, 170, 60, 30);
+        button2.setBounds(300, 90, 60, 30);
+
+        button3.setLabel("Read");
+        button3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button3ActionPerformed(evt);
+            }
+        });
+        add(button3);
+        button3.setBounds(370, 90, 60, 30);
+        add(ta);
+        ta.setBounds(20, 150, 410, 180);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -104,6 +118,36 @@ public class FileRemoveScreen extends java.awt.Frame {
                 
     }//GEN-LAST:event_button2ActionPerformed
 
+    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
+        ta.setText("");
+        try{
+            String path=t1.getText();
+            String fname=ch.getSelectedItem();
+            String file=path+"/"+fname;
+           
+            FileInputStream fis=new FileInputStream(file);
+            int size=fis.available();
+            byte b[]=new byte[size];
+            fis.read(b);
+            String s=new String(b);
+            ta.setText(s);
+            
+            
+            
+            
+//            while(true){
+//            int n=fis.read();
+//            if(n==-1)break;
+//            ta.append(""+(char)n);
+//            }
+            fis.close();
+            
+            
+        }catch(Exception e){
+            
+        }
+    }//GEN-LAST:event_button3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -119,8 +163,10 @@ public class FileRemoveScreen extends java.awt.Frame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
     private java.awt.Button button2;
+    private java.awt.Button button3;
     private java.awt.Choice ch;
     private java.awt.Label label1;
     private java.awt.TextField t1;
+    private java.awt.TextArea ta;
     // End of variables declaration//GEN-END:variables
 }
